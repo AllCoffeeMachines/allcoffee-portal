@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -15,8 +16,8 @@ box-sizing:border-box;
 body{
 margin:0;
 font-family:Arial, Helvetica, sans-serif;
-background:#0c0c0c;
-color:#ffffff;
+background:#0b0b0b;
+color:white;
 }
 
 header{
@@ -27,32 +28,30 @@ border-bottom:1px solid #333;
 }
 
 .logo{
-width:220px;
+width:240px;
 max-width:90%;
-margin:auto;
 }
 
 header p{
-color:#c9c9c9;
-font-size:18px;
+color:#ccc;
+font-size:17px;
 }
 
 .container{
-max-width:600px;
+max-width:650px;
 margin:40px auto;
-padding:25px;
+padding:20px;
 }
 
 .card{
 background:#171717;
 padding:30px;
 border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.4);
+box-shadow:0 10px 35px rgba(0,0,0,.5);
 }
 
-h2{
+h1,h2,h3{
 margin-top:0;
-font-size:28px;
 }
 
 input{
@@ -68,11 +67,11 @@ button{
 width:100%;
 margin-top:20px;
 padding:15px;
+border-radius:8px;
+border:none;
 background:#c89b3c;
 color:#111;
 font-weight:bold;
-border:none;
-border-radius:8px;
 font-size:16px;
 cursor:pointer;
 }
@@ -84,15 +83,40 @@ opacity:.9;
 .resultado{
 display:none;
 margin-top:25px;
-padding:20px;
 background:#222;
+padding:25px;
+border-radius:12px;
 border-left:5px solid #c89b3c;
-border-radius:8px;
 }
 
-footer{
+.dato{
+margin:8px 0;
+color:#ddd;
+}
+
+.estado{
+font-size:20px;
+font-weight:bold;
+color:#c89b3c;
+margin:20px 0;
+}
+
+.progreso div{
+padding:10px;
+margin:6px 0;
+border-radius:6px;
+background:#333;
+}
+
+.activo{
+background:#c89b3c !important;
+color:#111;
+font-weight:bold;
+}
+
+.footer{
 text-align:center;
-color:#aaa;
+color:#999;
 padding:30px;
 font-size:14px;
 }
@@ -107,7 +131,7 @@ font-size:14px;
 <img src="logo-allcoffee.png" class="logo" alt="All Coffee Machines">
 
 <p>
-Seguimiento online del estado de reparación de tu máquina de café
+Seguimiento profesional del servicio técnico
 </p>
 
 </header>
@@ -117,16 +141,16 @@ Seguimiento online del estado de reparación de tu máquina de café
 
 <div class="card">
 
-<h2>Consultar estado</h2>
+<h2>Consultar reparación</h2>
 
 <p>
-Ingresá los datos de tu orden de reparación:
+Ingresá tu número de orden y DNI para conocer el estado de tu equipo.
 </p>
 
 
 <input 
 id="orden" 
-placeholder="Número de orden">
+placeholder="Número de orden (Ej: 5200592)">
 
 
 <input 
@@ -135,7 +159,7 @@ placeholder="DNI">
 
 
 <button onclick="buscar()">
-Consultar reparación
+Consultar estado
 </button>
 
 
@@ -149,29 +173,27 @@ Consultar reparación
 </div>
 
 
-<footer>
+<div class="footer">
 
 All Coffee Machines © 2026  
 <br>
 Servicio técnico especializado en máquinas de café
 
-</footer>
+</div>
 <script>
 
 const reparaciones = [
 
 {
-orden:"1001",
+orden:"5200592",
 dni:"12345678",
+cliente:"Cliente Ejemplo",
+equipo:"Máquina espresso profesional",
 estado:"Reparación en proceso",
-detalle:"La máquina se encuentra en reparación y realizando pruebas técnicas."
-},
-
-{
-orden:"1002",
-dni:"87654321",
-estado:"Lista para retirar",
-detalle:"La reparación fue finalizada correctamente. Puede coordinar el retiro."
+paso:4,
+presupuesto:"85000",
+fecha:"28/07/2026",
+detalle:"Se detectó falla en sistema hidráulico. Se realizó intervención técnica y el equipo se encuentra en reparación."
 }
 
 ];
@@ -195,25 +217,126 @@ resultado.style.display="block";
 
 if(reparacion){
 
-resultado.innerHTML = 
-`
-<h3>${reparacion.estado}</h3>
-<p>${reparacion.detalle}</p>
-`;
 
-}else{
+let estados=[
+"Equipo recibido",
+"Diagnóstico técnico",
+"Presupuesto enviado",
+"Esperando aprobación del cliente",
+"Reparación en proceso",
+"Pruebas y control de calidad",
+"Lista para entregar",
+"Equipo entregado"
+];
 
-resultado.innerHTML =
+
+let progreso="";
+
+
+estados.forEach((estado,index)=>{
+
+let numero=index+1;
+
+if(numero < reparacion.paso){
+
+progreso += `<div>✓ ${estado}</div>`;
+
+}
+
+else if(numero === reparacion.paso){
+
+progreso += `<div class="activo">🔧 ${estado}</div>`;
+
+}
+
+else{
+
+progreso += `<div>○ ${estado}</div>`;
+
+}
+
+});
+
+
+let presupuesto="";
+
+
+if(reparacion.paso >= 4){
+
+presupuesto =
 `
-<h3>No encontramos la reparación</h3>
-<p>
-Verificá que el número de orden y DNI sean correctos.
+<p class="dato">
+<strong>Presupuesto aprobado:</strong> $${reparacion.presupuesto}
 </p>
 `;
 
 }
 
+
+resultado.innerHTML=
+`
+
+<h3>Orden #${reparacion.orden}</h3>
+
+<p class="dato">
+<strong>Cliente:</strong> ${reparacion.cliente}
+</p>
+
+<p class="dato">
+<strong>Equipo:</strong> ${reparacion.equipo}
+</p>
+
+
+<p class="estado">
+${reparacion.estado}
+</p>
+
+
+<div class="progreso">
+
+${progreso}
+
+</div>
+
+
+${presupuesto}
+
+
+<p class="dato">
+<strong>Fecha estimada:</strong> ${reparacion.fecha}
+</p>
+
+
+<p class="dato">
+<strong>Observación técnica:</strong><br>
+${reparacion.detalle}
+</p>
+
+
+`;
+
+
 }
+
+else{
+
+
+resultado.innerHTML=
+`
+
+<h3>No encontramos la reparación</h3>
+
+<p>
+Verificá que el número de orden y DNI sean correctos.
+</p>
+
+`;
+
+}
+
+
+}
+
 
 </script>
 
