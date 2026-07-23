@@ -4,302 +4,569 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>All Coffee Machines | Panel Técnico</title>
-
+<title>All Coffee Machines | Panel Administrativo</title>
 
 <style>
 
 *{
+margin:0;
+padding:0;
 box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
 }
-
 
 body{
 
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background:#0b0b0b;
+background:#0d0d0d;
 color:white;
 
 }
 
-
 header{
 
 background:#111;
-padding:25px;
-text-align:center;
-border-bottom:1px solid #333;
+
+padding:20px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+border-bottom:2px solid #c69b3c;
 
 }
-
 
 .logo{
 
-width:220px;
-max-width:90%;
+height:70px;
 
 }
 
+h1{
+
+font-size:28px;
+
+}
 
 .container{
 
-max-width:900px;
-margin:30px auto;
-padding:20px;
+max-width:1400px;
+
+margin:auto;
+
+padding:30px;
 
 }
-
 
 .card{
 
-background:#171717;
-padding:25px;
+background:#1b1b1b;
+
 border-radius:15px;
-margin-bottom:25px;
+
+padding:25px;
+
+margin-bottom:30px;
+
+box-shadow:0 0 20px rgba(0,0,0,.4);
 
 }
-
 
 h2{
 
-color:#c89b3c;
+margin-bottom:20px;
+
+color:#c69b3c;
 
 }
 
+.grid{
 
-input, textarea, select{
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+gap:15px;
+
+}
+
+input,select,textarea{
 
 width:100%;
+
 padding:12px;
-margin-top:10px;
-border-radius:8px;
+
 border:none;
+
+border-radius:8px;
+
 font-size:15px;
 
 }
-
 
 textarea{
 
 height:90px;
 
-}
+resize:none;
 
+}
 
 button{
 
-margin-top:15px;
+background:#c69b3c;
+
+color:black;
+
 padding:14px;
-width:100%;
-background:#c89b3c;
+
 border:none;
+
 border-radius:8px;
+
 font-weight:bold;
+
 cursor:pointer;
+
+margin-top:15px;
 
 }
 
+button:hover{
+
+opacity:.9;
+
+}
 
 table{
 
 width:100%;
+
 border-collapse:collapse;
+
 margin-top:20px;
 
 }
 
+th{
 
-td,th{
+background:#c69b3c;
 
-border-bottom:1px solid #444;
+color:black;
+
 padding:12px;
-text-align:left;
 
 }
 
+td{
 
-.estado{
+padding:12px;
 
-color:#c89b3c;
-font-weight:bold;
+border-bottom:1px solid #333;
+
+text-align:center;
 
 }
 
+.acciones button{
+
+margin:3px;
+
+padding:8px 12px;
+
+}
+
+.buscar{
+
+margin-bottom:20px;
+
+}
 
 </style>
 
-
 </head>
 
-
 <body>
-
 
 <header>
 
 <img src="logo-allcoffee.png" class="logo">
 
-<h2>
-Panel de gestión de reparaciones
-</h2>
+<h1>Panel Administrativo</h1>
 
 </header>
 
-
-
 <div class="container">
-
 
 <div class="card">
 
+<h2>Nueva reparación</h2>
 
-<h2>
-Nueva reparación
-</h2>
+<div class="grid">
 
+<input id="orden" placeholder="Orden">
 
-<input placeholder="Número de orden (5200xxx)">
+<input id="cliente" placeholder="Cliente">
 
+<input id="dni" placeholder="DNI">
 
-<input placeholder="Nombre del cliente">
+<input id="telefono" placeholder="Teléfono">
 
+<input id="equipo" placeholder="Equipo">
 
-<input placeholder="DNI">
+<input id="fecha" placeholder="Fecha estimada">
 
+<input id="presupuesto" placeholder="Presupuesto">
 
-<input placeholder="Teléfono">
+<select id="estado">
 
+<option>Equipo recibido</option>
 
-<input placeholder="Equipo / Modelo">
+<option>Diagnóstico técnico</option>
 
+<option>Presupuesto enviado</option>
 
-<textarea placeholder="Problema informado"></textarea>
+<option>Esperando aprobación del cliente</option>
 
+<option>Reparación en proceso</option>
 
-<textarea placeholder="Diagnóstico técnico"></textarea>
+<option>Pruebas y control de calidad</option>
 
+<option>Lista para entregar</option>
 
-<input placeholder="Presupuesto">
-
-
-<select>
-
-<option>
-Equipo recibido
-</option>
-
-<option>
-Diagnóstico técnico
-</option>
-
-<option>
-Presupuesto enviado
-</option>
-
-<option>
-Esperando aprobación del cliente
-</option>
-
-<option>
-Reparación en proceso
-</option>
-
-<option>
-Pruebas y control de calidad
-</option>
-
-<option>
-Lista para entregar
-</option>
-
-<option>
-Equipo entregado
-</option>
+<option>Equipo entregado</option>
 
 </select>
 
-
-<input placeholder="Fecha estimada">
-
-
-<textarea placeholder="Observaciones del técnico"></textarea>
-
-
-<button>
-Guardar reparación
-</button>
-
-
 </div>
 
+<br>
 
+<textarea
+id="problema"
+placeholder="Problema informado"></textarea>
 
+<br><br>
 
+<textarea
+id="diagnostico"
+placeholder="Diagnóstico técnico"></textarea>
 
+<br><br>
+
+<textarea
+id="observaciones"
+placeholder="Observaciones"></textarea>
+
+<button onclick="guardar()">
+
+Guardar reparación
+
+</button>
+
+</div>
 <div class="card">
 
+<h2>Buscar reparación</h2>
 
-<h2>
-Reparaciones actuales
-</h2>
-
+<input
+class="buscar"
+id="buscar"
+placeholder="Buscar por orden, cliente o DNI..."
+onkeyup="actualizarTabla()">
 
 <table>
 
-<tr>
-
-<th>
-Orden
-</th>
-
-<th>
-Cliente
-</th>
-
-<th>
-Equipo
-</th>
-
-<th>
-Estado
-</th>
-
-</tr>
-
+<thead>
 
 <tr>
 
-<td>
-5200592
-</td>
+<th>Orden</th>
 
-<td>
-Cliente ejemplo
-</td>
+<th>Cliente</th>
 
-<td>
-Máquina espresso profesional
-</td>
+<th>Equipo</th>
 
-<td class="estado">
-Reparación en proceso
-</td>
+<th>Estado</th>
+
+<th>Acciones</th>
 
 </tr>
 
+</thead>
+
+<tbody id="tablaReparaciones">
+
+</tbody>
 
 </table>
 
+</div>
 
 </div>
 
+<script>
 
+let reparaciones = JSON.parse(localStorage.getItem("reparaciones")) || [];
 
-</div>
+let editando = -1;
 
+const estados = [
+
+"Equipo recibido",
+
+"Diagnóstico técnico",
+
+"Presupuesto enviado",
+
+"Esperando aprobación del cliente",
+
+"Reparación en proceso",
+
+"Pruebas y control de calidad",
+
+"Lista para entregar",
+
+"Equipo entregado"
+
+];
+
+function guardar(){
+
+const reparacion={
+
+orden:document.getElementById("orden").value,
+
+cliente:document.getElementById("cliente").value,
+
+dni:document.getElementById("dni").value,
+
+telefono:document.getElementById("telefono").value,
+
+equipo:document.getElementById("equipo").value,
+
+fecha:document.getElementById("fecha").value,
+
+presupuesto:document.getElementById("presupuesto").value,
+
+estado:document.getElementById("estado").value,
+
+problema:document.getElementById("problema").value,
+
+diagnostico:document.getElementById("diagnostico").value,
+
+observaciones:document.getElementById("observaciones").value
+
+};
+  if(editando==-1){
+
+reparaciones.push(reparacion);
+
+}else{
+
+reparaciones[editando]=reparacion;
+
+editando=-1;
+
+}
+
+localStorage.setItem("reparaciones",JSON.stringify(reparaciones));
+
+limpiarFormulario();
+
+actualizarTabla();
+
+}
+
+function limpiarFormulario(){
+
+document.getElementById("orden").value="";
+
+document.getElementById("cliente").value="";
+
+document.getElementById("dni").value="";
+
+document.getElementById("telefono").value="";
+
+document.getElementById("equipo").value="";
+
+document.getElementById("fecha").value="";
+
+document.getElementById("presupuesto").value="";
+
+document.getElementById("estado").selectedIndex=0;
+
+document.getElementById("problema").value="";
+
+document.getElementById("diagnostico").value="";
+
+document.getElementById("observaciones").value="";
+
+}
+  function actualizarTabla(){
+
+const filtro=document.getElementById("buscar").value.toLowerCase();
+
+let html="";
+
+reparaciones.forEach((r,i)=>{
+
+if(
+
+r.orden.toLowerCase().includes(filtro) ||
+
+r.cliente.toLowerCase().includes(filtro) ||
+
+r.dni.toLowerCase().includes(filtro)
+
+){
+
+html+=`
+
+<tr>
+
+<td>${r.orden}</td>
+
+<td>${r.cliente}</td>
+
+<td>${r.equipo}</td>
+
+<td>${r.estado}</td>
+
+<td class="acciones">
+
+<button onclick="editar(${i})">
+
+Editar
+
+</button>
+
+<button onclick="eliminar(${i})">
+
+Eliminar
+
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+});
+
+document.getElementById("tablaReparaciones").innerHTML=html;
+
+}
+  function editar(i){
+
+editando=i;
+
+const r=reparaciones[i];
+
+document.getElementById("orden").value=r.orden;
+
+document.getElementById("cliente").value=r.cliente;
+
+document.getElementById("dni").value=r.dni;
+
+document.getElementById("telefono").value=r.telefono;
+
+document.getElementById("equipo").value=r.equipo;
+
+document.getElementById("fecha").value=r.fecha;
+
+document.getElementById("presupuesto").value=r.presupuesto;
+
+document.getElementById("estado").value=r.estado;
+
+document.getElementById("problema").value=r.problema;
+
+document.getElementById("diagnostico").value=r.diagnostico;
+
+document.getElementById("observaciones").value=r.observaciones;
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+}
+  function eliminar(i){
+
+if(confirm("¿Eliminar esta reparación?")){
+
+reparaciones.splice(i,1);
+
+localStorage.setItem(
+
+"reparaciones",
+
+JSON.stringify(reparaciones)
+
+);
+
+actualizarTabla();
+
+}
+
+}
+
+actualizarTabla();
+  window.onload=function(){
+
+if(reparaciones.length===0){
+
+reparaciones.push({
+
+orden:"5200592",
+
+cliente:"Cliente de prueba",
+
+dni:"12345678",
+
+telefono:"",
+
+equipo:"Máquina Espresso Profesional",
+
+fecha:"30/07/2026",
+
+presupuesto:"85000",
+
+estado:"Reparación en proceso",
+
+problema:"No carga agua.",
+
+diagnostico:"Falla en sistema hidráulico.",
+
+observaciones:"Equipo en reparación."
+
+});
+
+localStorage.setItem(
+
+"reparaciones",
+
+JSON.stringify(reparaciones)
+
+);
+
+}
+
+actualizarTabla();
+
+};
+  </script>
 
 </body>
 
