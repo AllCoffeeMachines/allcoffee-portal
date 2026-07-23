@@ -3,105 +3,175 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Coffee Machines - Seguimiento</title>
+
+<title>All Coffee Machines | Seguimiento de reparación</title>
 
 <style>
-body {
-    font-family: Arial, sans-serif;
-    background:#f5f5f5;
-    margin:0;
+
+*{
+box-sizing:border-box;
 }
 
-header {
-    background:#111;
-    color:white;
-    padding:25px;
-    text-align:center;
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#0c0c0c;
+color:#ffffff;
 }
 
-.container {
-    max-width:600px;
-    margin:30px auto;
-    background:white;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,.1);
+header{
+background:#111;
+padding:30px 20px;
+text-align:center;
+border-bottom:1px solid #333;
 }
 
-input, button {
-    width:100%;
-    padding:12px;
-    margin-top:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
-    font-size:16px;
+.logo{
+width:220px;
+max-width:90%;
+margin:auto;
 }
 
-button {
-    background:#111;
-    color:white;
-    cursor:pointer;
+header p{
+color:#c9c9c9;
+font-size:18px;
 }
 
-.status {
-    margin-top:20px;
-    padding:20px;
-    border-radius:10px;
-    background:#eee;
-    display:none;
+.container{
+max-width:600px;
+margin:40px auto;
+padding:25px;
 }
 
-.logo {
-    font-size:25px;
-    font-weight:bold;
+.card{
+background:#171717;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.4);
 }
+
+h2{
+margin-top:0;
+font-size:28px;
+}
+
+input{
+width:100%;
+padding:15px;
+margin-top:15px;
+border-radius:8px;
+border:none;
+font-size:16px;
+}
+
+button{
+width:100%;
+margin-top:20px;
+padding:15px;
+background:#c89b3c;
+color:#111;
+font-weight:bold;
+border:none;
+border-radius:8px;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:.9;
+}
+
+.resultado{
+display:none;
+margin-top:25px;
+padding:20px;
+background:#222;
+border-left:5px solid #c89b3c;
+border-radius:8px;
+}
+
+footer{
+text-align:center;
+color:#aaa;
+padding:30px;
+font-size:14px;
+}
+
 </style>
 
 </head>
-
 <body>
 
 <header>
-<div class="logo">All Coffee Machines</div>
-<p>Seguimiento de reparación</p>
+
+<img src="logo-allcoffee.png" class="logo" alt="All Coffee Machines">
+
+<p>
+Seguimiento online del estado de reparación de tu máquina de café
+</p>
+
 </header>
 
 
 <div class="container">
 
+<div class="card">
+
 <h2>Consultar estado</h2>
 
-<p>Ingresá tu número de orden y DNI</p>
-
-<input id="orden" placeholder="Número de orden">
-
-<input id="dni" placeholder="DNI">
-
-<button onclick="buscar()">Consultar reparación</button>
+<p>
+Ingresá los datos de tu orden de reparación:
+</p>
 
 
-<div class="status" id="resultado"></div>
+<input 
+id="orden" 
+placeholder="Número de orden">
+
+
+<input 
+id="dni" 
+placeholder="DNI">
+
+
+<button onclick="buscar()">
+Consultar reparación
+</button>
+
+
+<div class="resultado" id="resultado">
 
 </div>
 
 
+</div>
+
+</div>
+
+
+<footer>
+
+All Coffee Machines © 2026  
+<br>
+Servicio técnico especializado en máquinas de café
+
+</footer>
 <script>
 
 const reparaciones = [
+
 {
 orden:"1001",
 dni:"12345678",
-cliente:"Cliente ejemplo",
 estado:"Reparación en proceso",
-detalle:"La máquina se encuentra en reparación y pruebas finales."
+detalle:"La máquina se encuentra en reparación y realizando pruebas técnicas."
 },
 
 {
 orden:"1002",
 dni:"87654321",
-cliente:"Cliente ejemplo 2",
 estado:"Lista para retirar",
-detalle:"Su cafetera fue reparada correctamente."
+detalle:"La reparación fue finalizada correctamente. Puede coordinar el retiro."
 }
 
 ];
@@ -109,34 +179,36 @@ detalle:"Su cafetera fue reparada correctamente."
 
 function buscar(){
 
-let orden=document.getElementById("orden").value;
-let dni=document.getElementById("dni").value;
+let orden = document.getElementById("orden").value;
+let dni = document.getElementById("dni").value;
 
-let resultado=document.getElementById("resultado");
+let resultado = document.getElementById("resultado");
 
 
-let encontrado=reparaciones.find(
-r=>r.orden===orden && r.dni===dni
+let reparacion = reparaciones.find(
+item => item.orden === orden && item.dni === dni
 );
 
 
 resultado.style.display="block";
 
 
-if(encontrado){
+if(reparacion){
 
-resultado.innerHTML=
+resultado.innerHTML = 
 `
-<h3>${encontrado.estado}</h3>
-<p>${encontrado.detalle}</p>
+<h3>${reparacion.estado}</h3>
+<p>${reparacion.detalle}</p>
 `;
 
 }else{
 
-resultado.innerHTML=
+resultado.innerHTML =
 `
 <h3>No encontramos la reparación</h3>
-<p>Verificá el número de orden y DNI.</p>
+<p>
+Verificá que el número de orden y DNI sean correctos.
+</p>
 `;
 
 }
@@ -147,4 +219,5 @@ resultado.innerHTML=
 
 
 </body>
+
 </html>
