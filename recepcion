@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Recepción | All Coffee Machines</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+background:#0b0b0b;
+color:white;
+
+}
+
+header{
+
+background:#111;
+padding:25px;
+text-align:center;
+border-bottom:1px solid #333;
+
+}
+
+.logo{
+
+width:220px;
+max-width:90%;
+
+}
+
+.container{
+
+max-width:900px;
+margin:35px auto;
+padding:20px;
+
+}
+
+.card{
+
+background:#171717;
+padding:25px;
+border-radius:15px;
+margin-bottom:25px;
+
+}
+
+h2{
+
+color:#c89b3c;
+
+}
+
+label{
+
+display:block;
+margin-top:15px;
+font-weight:bold;
+
+}
+
+input,
+textarea,
+select{
+
+width:100%;
+padding:12px;
+margin-top:5px;
+border:none;
+border-radius:8px;
+font-size:15px;
+
+}
+
+textarea{
+
+height:90px;
+
+}
+
+.row{
+
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+
+}
+
+button{
+
+margin-top:25px;
+width:100%;
+padding:15px;
+background:#c89b3c;
+border:none;
+border-radius:8px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+button:hover{
+
+opacity:.9;
+
+}
+table{
+
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+background:#171717;
+
+}
+
+th{
+
+background:#c89b3c;
+color:black;
+padding:12px;
+
+}
+
+td{
+
+padding:12px;
+border-bottom:1px solid #333;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<img src="logo-allcoffee.png" class="logo">
+
+<h2>
+
+Recepción de equipos
+
+</h2>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>
+
+Nueva orden de reparación
+
+</h2>
+<div class="row">
+
+<div>
+
+<label>Número de orden</label>
+
+<input
+id="orden"
+readonly>
+
+</div>
+
+<div>
+
+<label>Fecha de ingreso</label>
+
+<input
+id="fecha"
+type="date">
+
+</div>
+
+</div>
+
+
+<label>Nombre del cliente</label>
+
+<input
+id="cliente"
+placeholder="Ej: Juan Pérez">
+
+
+<div class="row">
+
+<div>
+
+<label>DNI</label>
+
+<input
+id="dni">
+
+</div>
+
+<div>
+
+<label>Teléfono</label>
+
+<input
+id="telefono">
+
+</div>
+
+</div>
+
+
+<label>Email</label>
+
+<input
+id="email">
+
+
+<div class="row">
+
+<div>
+
+<label>Marca</label>
+
+<input
+id="marca"
+placeholder="Ej: Nuova Simonelli">
+
+</div>
+
+<div>
+
+<label>Modelo</label>
+
+<input
+id="modelo">
+
+</div>
+
+</div>
+
+
+<label>Número de serie</label>
+
+<input
+id="serie">
+
+
+<label>Accesorios entregados</label>
+
+<textarea
+id="accesorios"
+placeholder="Portafiltro, manguera, tamper..."></textarea>
+
+
+<label>Problema informado por el cliente</label>
+
+<textarea
+id="problema"></textarea>
+
+
+<label>Técnico asignado</label>
+
+<select id="tecnico">
+
+<option>Sin asignar</option>
+
+<option>Técnico 1</option>
+
+<option>Técnico 2</option>
+
+<option>Técnico 3</option>
+
+</select>
+<label>Estado de la reparación</label>
+
+<select id="estado">
+<option>Recibido</option>
+<option>Diagnosticando</option>
+<option>Esperando repuesto</option>
+<option>En reparación</option>
+<option>Reparado</option>
+<option>Entregado</option>
+</select>
+<label>Observaciones del técnico</label>
+
+<textarea id="observaciones"
+placeholder="Trabajo realizado, repuestos utilizados, pruebas..."></textarea>
+<script>
+
+let ultimoNumeroOrden = localStorage.getItem("ultimoNumeroOrden");
+
+if (!ultimoNumeroOrden) {
+    ultimoNumeroOrden = 5200600;
+}
+
+let nuevoNumeroOrden = Number(ultimoNumeroOrden) + 1;
+
+document.getElementById("orden").value = nuevoNumeroOrden;
+
+localStorage.setItem("ultimoNumeroOrden", nuevoNumeroOrden);
+
+
+</script>
+<div class="botones">
+<button onclick="guardarOrden()">Guardar orden</button>
+<button onclick="limpiarFormulario()">Nueva orden</button>
+</div>
+
+<script>
+
+function guardarOrden(){
+
+const orden = {
+numero: document.getElementById("orden").value,
+fecha: document.getElementById("fecha").value,
+cliente: document.getElementById("cliente").value,
+dni: document.getElementById("dni").value,
+telefono: document.getElementById("telefono").value,
+email: document.getElementById("email").value,
+marca: document.getElementById("marca").value,
+modelo: document.getElementById("modelo").value,
+serie: document.getElementById("serie").value,
+accesorios: document.getElementById("accesorios").value,
+problema: document.getElementById("problema").value,
+tecnico: document.getElementById("tecnico").value,
+estado: document.getElementById("estado").value,
+observaciones: document.getElementById("observaciones").value,
+fechaActualizacion: new Date().toLocaleString()
+
+};
+localStorage.setItem(
+"orden_"+orden.numero,
+JSON.stringify(orden)
+);
+
+
+alert("Orden guardada correctamente");
+
+
+}
+
+
+function limpiarFormulario(){
+
+document.querySelectorAll("input, textarea").forEach(elemento=>{
+elemento.value="";
+});
+
+document.getElementById("tecnico").value="Sin asignar";
+
+
+let ultimoNumeroOrden = localStorage.getItem("ultimoNumeroOrden");
+
+let nuevoNumeroOrden = Number(ultimoNumeroOrden)+1;
+
+document.getElementById("orden").value=nuevoNumeroOrden;
+
+localStorage.setItem("ultimoNumeroOrden", nuevoNumeroOrden);
+
+
+}
+
+
+</script>
+<div class="busqueda">
+
+<label>Buscar número de orden</label>
+
+<input id="buscarOrden" placeholder="Ej: 5200594">
+
+<button onclick="buscarOrden()">Buscar</button>
+
+</div>
+
+
+<script>
+
+function buscarOrden(){
+
+let numero = document.getElementById("buscarOrden").value;
+
+
+let datos = localStorage.getItem("orden_" + numero);
+
+
+if(!datos){
+
+alert("No se encontró ninguna orden con ese número");
+
+return;
+
+}
+
+
+let orden = JSON.parse(datos);
+
+
+document.getElementById("orden").value = orden.numero;
+document.getElementById("fecha").value = orden.fecha;
+document.getElementById("cliente").value = orden.cliente;
+document.getElementById("dni").value = orden.dni;
+document.getElementById("telefono").value = orden.telefono;
+document.getElementById("email").value = orden.email;
+document.getElementById("marca").value = orden.marca;
+document.getElementById("modelo").value = orden.modelo;
+document.getElementById("serie").value = orden.serie;
+document.getElementById("accesorios").value = orden.accesorios;
+document.getElementById("problema").value = orden.problema;
+document.getElementById("estado").value = orden.estado;
+  document.getElementById("observaciones").value = orden.observaciones || "";
+
+alert("Orden cargada correctamente");
+
+
+}
+
+</script>
+ 
+<hr>
+ <div class="card">
+<h2>Listado de órdenes</h2>
+
+<table id="tablaOrdenes">
+
+<thead>
+
+<tr>
+<th>Orden</th>
+<th>Cliente</th>
+<th>Máquina</th>
+<th>Técnico</th>
+<th>Estado</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+</tbody>
+
+</table>
+
+
+<button onclick="mostrarOrdenes()">Actualizar listado</button>
+</div>
+
+<script>
+
+function mostrarOrdenes(){
+
+let tabla = document.querySelector("#tablaOrdenes tbody");
+
+tabla.innerHTML="";
+
+
+for(let i = 0; i < localStorage.length; i++){
+
+let clave = localStorage.key(i);
+
+
+if(clave.startsWith("orden_")){
+
+
+let datos = JSON.parse(localStorage.getItem(clave));
+
+
+let fila = document.createElement("tr");
+
+
+fila.innerHTML = `
+
+<td>${datos.numero}</td>
+
+<td>${datos.cliente}</td>
+
+<td>${datos.marca} ${datos.modelo}</td>
+
+<td>${datos.tecnico}</td>
+
+<td>${datos.estado || "Recibido"}</td>
+
+`;
+
+
+tabla.appendChild(fila);
+
+
+}
+
+}
+
+
+}
+
+</script>
+<hr>
+<div class="card">
+<h2>Consulta de cliente</h2>
+
+<label>Número de orden</label>
+
+<input id="consultaOrden" placeholder="Ej: 5200594">
+
+
+<label>DNI</label>
+
+<input id="consultaDni" placeholder="Ingrese su DNI">
+
+
+<button onclick="consultarCliente()">
+Consultar reparación
+</button>
+
+
+<div id="resultadoConsulta"></div>
+
+
+<script>
+
+function consultarCliente(){
+
+
+let numero = document.getElementById("consultaOrden").value;
+
+let dni = document.getElementById("consultaDni").value;
+
+
+let datos = localStorage.getItem("orden_" + numero);
+
+
+
+if(!datos){
+
+document.getElementById("resultadoConsulta").innerHTML =
+"<p>No se encontró ninguna reparación.</p>";
+
+return;
+
+}
+
+
+
+let orden = JSON.parse(datos);
+
+
+
+if(orden.dni !== dni){
+
+
+document.getElementById("resultadoConsulta").innerHTML =
+"<p>Los datos ingresados no coinciden.</p>";
+
+return;
+
+
+}
+
+
+
+document.getElementById("resultadoConsulta").innerHTML = `
+
+<h3>Estado de reparación</h3>
+
+<p><strong>Orden:</strong> ${orden.numero}</p>
+
+<p><strong>Cliente:</strong> ${orden.cliente}</p>
+
+<p><strong>Equipo:</strong> ${orden.marca} ${orden.modelo}</p>
+
+<p><strong>Problema:</strong> ${orden.problema}</p>
+
+<p><strong>Técnico:</strong> ${orden.tecnico}</p>
+
+<p><strong>Estado:</strong> ${orden.estado}</p>
+  
+<p><strong>Última actualización:</strong> ${orden.fechaActualizacion || ""}</p>
+
+`;
+
+
+
+}
+
+
+</script>
+  </div>
