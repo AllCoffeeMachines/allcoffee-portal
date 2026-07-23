@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>All Coffee Machines | Panel Técnico</title>
+
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+
+body{
+
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#0b0b0b;
+color:white;
+
+}
+
+
+header{
+
+background:#111;
+padding:25px;
+text-align:center;
+border-bottom:1px solid #333;
+
+}
+
+
+.logo{
+
+width:220px;
+max-width:90%;
+
+}
+
+
+.container{
+
+max-width:900px;
+margin:30px auto;
+padding:20px;
+
+}
+
+
+.card{
+
+background:#171717;
+padding:25px;
+border-radius:15px;
+margin-bottom:25px;
+
+}
+
+
+h2{
+
+color:#c89b3c;
+
+}
+
+
+input, textarea, select{
+
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:8px;
+border:none;
+font-size:15px;
+
+}
+
+
+textarea{
+
+height:90px;
+
+}
+
+
+button{
+
+margin-top:15px;
+padding:14px;
+width:100%;
+background:#c89b3c;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+
+table{
+
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+
+}
+
+
+td,th{
+
+border-bottom:1px solid #444;
+padding:12px;
+text-align:left;
+
+}
+
+
+.estado{
+
+color:#c89b3c;
+font-weight:bold;
+
+}
+
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<img src="logo-allcoffee.png" class="logo">
+
+<h2>
+Panel de gestión de reparaciones
+</h2>
+
+</header>
+
+
+
+<div class="container">
+
+
+<div class="card">
+
+
+<h2>
+Nueva reparación
+</h2>
+
+
+<input placeholder="Número de orden (5200xxx)">
+
+
+<input placeholder="Nombre del cliente">
+
+
+<input placeholder="DNI">
+
+
+<input placeholder="Teléfono">
+
+
+<input placeholder="Equipo / Modelo">
+
+
+<textarea placeholder="Problema informado"></textarea>
+
+
+<textarea placeholder="Diagnóstico técnico"></textarea>
+
+
+<input placeholder="Presupuesto">
+
+
+<select>
+
+<option>
+Equipo recibido
+</option>
+
+<option>
+Diagnóstico técnico
+</option>
+
+<option>
+Presupuesto enviado
+</option>
+
+<option>
+Esperando aprobación del cliente
+</option>
+
+<option>
+Reparación en proceso
+</option>
+
+<option>
+Pruebas y control de calidad
+</option>
+
+<option>
+Lista para entregar
+</option>
+
+<option>
+Equipo entregado
+</option>
+
+</select>
+
+
+<input placeholder="Fecha estimada">
+
+
+<textarea placeholder="Observaciones del técnico"></textarea>
+
+
+<button>
+Guardar reparación
+</button>
+
+
+</div>
+
+
+
+
+
+<div class="card">
+
+
+<h2>
+Reparaciones actuales
+</h2>
+
+
+<table>
+
+<tr>
+
+<th>
+Orden
+</th>
+
+<th>
+Cliente
+</th>
+
+<th>
+Equipo
+</th>
+
+<th>
+Estado
+</th>
+
+</tr>
+
+
+<tr>
+
+<td>
+5200592
+</td>
+
+<td>
+Cliente ejemplo
+</td>
+
+<td>
+Máquina espresso profesional
+</td>
+
+<td class="estado">
+Reparación en proceso
+</td>
+
+</tr>
+
+
+</table>
+
+
+</div>
+
+
+
+</div>
+
+
+</body>
+
+</html>
